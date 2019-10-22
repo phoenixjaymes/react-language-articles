@@ -11,7 +11,7 @@ const Final = ({ correctAnswers }) => {
   ));
   return (
     <MainContainer>
-      <h1>Here are all of the correct answers</h1>
+      <h1>Correct Answers</h1>
 
       <ul className="final-box">
         {answers}
