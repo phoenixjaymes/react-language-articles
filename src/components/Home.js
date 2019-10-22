@@ -6,15 +6,17 @@ import MainContainer from './MainContainer';
 function Home({ clickHeroButton }) {
   return (
     <MainContainer>
-      <h1>Language Articles</h1>
-      <h2>Test Your Knowledge of Articles</h2>
-      <p>
-        The German articles are der, die, das, ein, and eine.
-      </p>
+      <div  className="center-text">
+        <h1>Language Articles</h1>
+        <h2>Test Your Knowledge of Articles</h2>
+        <p>
+          The German articles are der, die, das, ein, and eine.
+        </p>
 
-      <p>
-        The Dutch articles are de and het.
-      </p>
+        <p>
+          The Dutch articles are de and het.
+        </p>
+      </div>
 
       <div className="hero-buttons">
         <button type="button" onClick={() => clickHeroButton('de', 'definite')}>German Definite</button>
