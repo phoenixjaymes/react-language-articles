@@ -6,6 +6,7 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
 }
 
 .main-container {
@@ -23,18 +24,19 @@ body {
   max-width: 600px;
 }
 
-h1,
 h2,
 p {
   margin-bottom: 15px;
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 h2 {
-  font-size: 1.375rem;
+  font-size: 1.25rem;
 }
 
 ul {
@@ -42,7 +44,16 @@ ul {
 }
 
 main {
+  background: #fff;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+
   flex: 1 0;
+}
+
+main .inner-container {
+  flex: 0 0;
 }
 
 main,
@@ -53,6 +64,12 @@ footer {
 header,
 footer {
   background: rgb(49, 36, 80);
+}
+
+footer {
+  color: #fff;
+  height: 40px;
+  text-align: center;
 }
 
 
@@ -152,27 +169,6 @@ nav > ul li span.active {
 }
 /***** end header *****/
 
-/***** main *****/
-main {
-  background: #fff;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-}
-
-main .inner-container {
-  flex: 0 0;
-  
-}
-/***** end header ****/
-
-/***** footer *****/
-footer {
-  color: #fff;
-  height: 40px;
-  text-align: center;
-}
-/***** end footer *****/
 
 /***** buttons *****/
 
@@ -183,7 +179,7 @@ button {
   color: #fff;
   display: inline-block;
   font-size: 1rem;
-  margin: 2px 2px;
+  margin: 2px 4px 5px;
   min-width: 50px;
   padding: 5px 10px;
 }
@@ -198,6 +194,11 @@ button:hover {
   min-width: 300px;
 }
 
+.hero-buttons button {
+  margin-bottom: 8px;
+  min-width: 160px;
+}
+
 .btn-check {
   width: 100px;
 }
@@ -208,20 +209,25 @@ button:hover {
 .articles-box,
 .check-answer-box,
 .answer-box {
+  border-radius: 5px;
   font-size: 1.125rem;
   margin: 0 auto 15px;
   text-align: center;
   width: 300px;
 }
 
-.word-box {
+.word-box,
+.answer-box {
   display: flex;
   justify-content: center;
   flex-flow: column nowrap;
 
-  background: rgba(49, 36, 80, .04);
-  height: 64px;
+  height: 70px;
   line-height: 25px;
+}
+
+.word-box {
+  background: rgba(49, 36, 80, .03);
   margin: 0 auto 20px;
   max-width: 400px;
   text-align: center;
@@ -230,7 +236,7 @@ button:hover {
 .word-box p {
   font-style: italic;
   font-weight: 700;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 .word-box__article {
@@ -251,14 +257,13 @@ button:hover {
   text-align: center;
 }
 
+.answer-box__text {
+  margin-bottom: 5px;
+}
 
-.answer-box {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-
-  height: 65px;
-  padding-top: 5px;
+.answer-box__answer {
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
 .answer-box.answer-correct {
@@ -274,10 +279,98 @@ button:hover {
 .final-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px;
+  gap: 4px;
+}
+
+.final-box li {
+  padding: 1px 0;
 }
 
 /**** Misc styles *****/
 .center-text {
   text-align: center;
+}
+
+
+@media (min-width: 544px) {
+  h2,
+  p {
+    margin-bottom: 25px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    font-size: 1.375rem;
+  }
+
+  button {
+    font-size: 1.1rem;
+    margin: 2px 6px;
+    min-width: 60px;
+    padding: 5px 10px;
+  }
+
+  .hero-buttons button {
+    margin-bottom: 15px;
+    min-width: 170px;
+  }
+
+  .word-box,
+  .articles-box,
+  .check-answer-box,
+  .answer-box {
+    font-size: 1.25rem;
+    margin-bottom: 25px;
+    width: 300px;
+  }
+
+  .word-box,
+  .answer-box {
+    height: 90px;
+  }
+
+  .word-box p {
+    margin-bottom: 10px;
+  }
+
+  .answer-box__text {
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 940px) {
+  h2,
+  p {
+    margin-bottom: 25px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+
+  button {
+    font-size: 1.2rem;
+    margin: 2px 6px;
+    min-width: 70px;
+    padding: 6px 10px;
+  }
+
+  .hero-buttons button {
+    min-width: 180px;
+  }
+
+  .word-box,
+  .articles-box,
+  .check-answer-box,
+  .answer-box {
+    margin-bottom: 30px;
+  }
 }
