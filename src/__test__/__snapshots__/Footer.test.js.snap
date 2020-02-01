@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer matches the snapshot 1`] = `
+<footer>
+  <div
+    className="inner-container"
+  >
+    <small>
+      © 2019 PhoenixJaymes
+    </small>
+  </div>
+</footer>
+`;
