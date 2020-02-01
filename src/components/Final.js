@@ -5,7 +5,7 @@ import MainContainer from './MainContainer';
 
 const Final = ({ correctAnswers }) => {
   const answers = correctAnswers.map((answer) => (
-    <li>
+    <li key={answer.id}>
       {answer.answer}
     </li>
   ));
