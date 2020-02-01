@@ -16,16 +16,6 @@ class App extends Component {
       words: {},
       isSubShown: false,
       wordList: [],
-      articles: [],
-      selectedArticle: '',
-      checkAnswerLabel: 'Check',
-      currentIndex: 0,
-      currentWord: '',
-      currentEnglish: '',
-      length: null,
-      answerClass: '',
-      answer: '',
-      answerText: '',
       correctAnswers: [],
       loading: true,
       error: false,
@@ -43,7 +33,6 @@ class App extends Component {
       this.setState({
         words: tmpWords,
         wordList: tmpWords[lang],
-        length: tmpWords[lang].length,
         loading: false,
       });
     } else {
@@ -54,7 +43,6 @@ class App extends Component {
           this.setState({
             words: responseData.data.words,
             wordList: responseData.data.words[lang],
-            length: responseData.data.words[lang].length,
             loading: false,
           });
         })
@@ -89,21 +77,11 @@ class App extends Component {
     });
   }
 
-  setUpTask = (articleType, lang) => {
+  setUpWordList = (lang) => {
     const { words } = this.state;
 
     this.setState({
-      articles: words[lang][0][articleType],
       wordList: words[lang],
-      selectedArticle: '',
-      currentIndex: 0,
-      length: words[lang].length,
-      currentWord: words[lang][0].word,
-      currentEnglish: words[lang][0].english,
-      checkAnswerLabel: 'Check',
-      answerClass: '',
-      answer: '',
-      answerText: '',
     });
   }
 
@@ -116,14 +94,14 @@ class App extends Component {
         articleType: 'definite',
       });
 
-      this.setUpTask('definite', lang);
+      this.setUpWordList(lang);
       this.setCorrectAnswers('definite', lang);
 
       return;
     }
 
     this.setState({ lang });
-    this.setUpTask(articleType, lang);
+    this.setUpWordList(lang);
     this.setCorrectAnswers(articleType, lang);
   }
 
@@ -135,7 +113,7 @@ class App extends Component {
       articleType,
     });
 
-    this.setUpTask(articleType, lang);
+    this.setUpWordList(lang);
     this.setCorrectAnswers(articleType, lang);
   }
 
@@ -146,7 +124,7 @@ class App extends Component {
       articleType,
     });
 
-    this.setUpTask(articleType, lang);
+    this.setUpWordList(lang);
     this.setCorrectAnswers(articleType, lang);
   }
 
@@ -163,119 +141,10 @@ class App extends Component {
     }
   }
 
-  handleArticleClick = (article) => {
-    this.setState({ selectedArticle: article });
-  }
-
-  checkAnswer = () => {
-    const {
-      selectedArticle, currentIndex, articleType, wordList,
-    } = this.state;
-
-    const answerName = `${articleType}Answer`;
-    const tempWordList = wordList;
-    const answer = `${wordList[currentIndex][answerName]} ${wordList[currentIndex].word}`;
-    let isAnswerCorrect;
-    let answerClass;
-    let answerText;
-
-    if (selectedArticle === wordList[currentIndex][answerName]) {
-      isAnswerCorrect = true;
-      answerClass = 'answer-correct';
-      answerText = 'Your answer is correct';
-    } else {
-      isAnswerCorrect = false;
-      answerClass = 'answer-incorrect';
-      answerText = 'The correct answer is';
-      tempWordList.push(wordList[currentIndex]);
-
-      this.setState({
-        wordList: tempWordList,
-        length: tempWordList.length,
-      });
-    }
-
-    this.setState({
-      answerClass,
-      answer,
-      answerText,
-    });
-
-    return isAnswerCorrect;
-  }
-
-  nextWord = () => {
-    const { wordList, currentIndex, length } = this.state;
-
-    if (currentIndex < length - 1) {
-      this.setState((prevState) => (
-        {
-          selectedArticle: '',
-          currentIndex: prevState.currentIndex + 1,
-          currentWord: wordList[prevState.currentIndex + 1].word,
-          currentEnglish: wordList[prevState.currentIndex + 1].english,
-        }
-      ));
-    }
-  }
-
-  handleCheckAnswer = () => {
-    const {
-      selectedArticle, checkAnswerLabel, currentIndex, length,
-    } = this.state;
-
-    if (selectedArticle === '') {
-      return;
-    }
-
-    if (checkAnswerLabel === 'Check') {
-      const isCorrect = this.checkAnswer();
-
-      if (!isCorrect) {
-        this.setState({ checkAnswerLabel: 'Next' });
-      } else if (isCorrect && currentIndex < length - 1) {
-        this.setState({ checkAnswerLabel: 'Next' });
-      } else {
-        this.setState({ checkAnswerLabel: 'Finish' });
-      }
-    } else if (checkAnswerLabel === 'Next') {
-      this.nextWord();
-      this.setState({
-        checkAnswerLabel: 'Check',
-        answerClass: '',
-        answer: '',
-        answerText: '',
-      });
-    } else if (checkAnswerLabel === 'Finish') {
-      this.changePage('final');
-    }
-  }
-
   render() {
     const {
-      lang, articleType, page, isSubShown, wordList, articles,
-      selectedArticle, currentWord, currentEnglish, answer, answerClass, checkAnswerLabel,
-      answerText, correctAnswers,
+      lang, articleType, page, isSubShown, wordList, correctAnswers,
     } = this.state;
-
-    const taskObj = {
-      lang,
-      articleType,
-      articles,
-      wordList,
-      selectedArticle,
-      currentWord,
-      currentEnglish,
-      checkAnswerLabel,
-      answer,
-      answerClass,
-      answerText,
-      actions: {
-        changePage: this.changePage,
-        handleArticleClick: this.handleArticleClick,
-        handleCheckAnswer: this.handleCheckAnswer,
-      },
-    };
 
     return (
       <div className="main-container" onClick={this.setSubMenuVisible} role="presentation">
@@ -289,10 +158,14 @@ class App extends Component {
           isSubShown={isSubShown}
         />
         <Main
-          taskObj={taskObj}
           correctAnswers={correctAnswers}
           page={page}
           clickHeroButton={this.clickHeroButton}
+
+          lang={lang}
+          articleType={articleType}
+          wordList={wordList}
+          changePage={this.changePage}
         />
         <Footer />
       </div>
