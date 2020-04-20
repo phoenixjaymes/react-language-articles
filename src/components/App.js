@@ -36,7 +36,7 @@ class App extends Component {
         loading: false,
       });
     } else {
-      fetch('http://phoenixjaymes.com/assets/data/language/get-articles.php')
+      fetch('https://phoenixjaymes.com/assets/data/language/get-articles.php')
         .then((reponse) => reponse.json())
         .then((responseData) => {
           sessionStorage.setItem('words', JSON.stringify(responseData.data.words));
